@@ -1,0 +1,32 @@
+{
+  "name": "browserify-window-context",
+  "version": "0.1.0",
+  "description": "Replaces default module context with Window",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/vintikzzzz/browserify-window-context.git"
+  },
+  "keywords": [
+    "browserify",
+    "browserify-transform",
+    "shim",
+    "global",
+    "globals",
+    "transform",
+    "window",
+    "commonjs"
+  ],
+  "author": {
+    "name": "Pavel Tatarskiy",
+    "email": "pavel@tatarsky.ru"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "mothership": "^0.3.0",
+    "through": "^2.3.8"
+  }
+}
