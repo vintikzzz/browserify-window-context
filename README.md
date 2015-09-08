@@ -23,7 +23,7 @@ By default in a shimed module `this` points to empty `Object` that makes a lot o
   },
   "dependencies": {
     "browserify-shim": "~3.2.0",
-    "browserify-window-context": "~0.1.0"
+    "browserify-window-context": "~0.1.1"
   }
 }
 ```
@@ -33,6 +33,24 @@ By default in a shimed module `this` points to empty `Object` that makes a lot o
     npm install browserify-window-context
 
 ## How it works
-It simply wraps your script with another function and applies new Window context like so:
+It simply wraps your script with another function and applies new `window` context like so:
 
     (function () {' + data + '}).apply(window);
+
+## Setup
+
+Add alias of your script to `browser`:
+
+```json
+  "browser": {
+    "old_good_script": "./js/vendor/old_good_script.js"
+  },
+```
+
+Then add alias of your script to `browserify-window-context`:
+
+```json
+  "browserify-window-context": [
+    "old_good_script"
+  ],
+```
