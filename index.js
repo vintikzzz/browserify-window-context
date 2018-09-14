@@ -4,17 +4,24 @@ var through = require('through');
 var path = require('path');
 function process(file, data, callback) {
   mothership(file, function (pack) { return !! pack['browser'] && !! pack['browserify-window-context'] }, function (err, res) {
-    pack = res.pack
+    pack = res.pack;
     browser = pack['browser'];
-    Object.keys(browser).forEach(function(key) {
-      var val = browser[key];
-      if (path.resolve(val) == path.resolve(file) && pack['browserify-window-context'].indexOf(key) != -1) {
-        res = '(function () {' + data + '}).apply(window);';
-        callback(res);
-      } else {
-        callback(data);
+    var filePath = path.resolve(file);
+    var mustAddWindowContext = Object.keys(browser).reduce(function(result, key) {
+      var shimPath = path.resolve(browser[key]);
+
+      if (shimPath !== filePath) {
+        return result;
       }
-    });
+
+      return result || pack['browserify-window-context'].indexOf(key) !== -1;
+    }, false);
+
+    if (mustAddWindowContext) {
+      data = '(function () {' + data + '}).apply(window);';
+    }
+    
+    callback(data);
   });
 }
 function transform(file) {
