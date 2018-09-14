@@ -11,10 +11,11 @@ function process(file, data, callback) {
       if (path.resolve(val) == path.resolve(file) && pack['browserify-window-context'].indexOf(key) != -1) {
         res = '(function () {' + data + '}).apply(window);';
         callback(res);
+      } else {
+        callback(data);
       }
     });
   });
-  callback(data);
 }
 function transform(file) {
   var data = '', stream = through(write, end);
